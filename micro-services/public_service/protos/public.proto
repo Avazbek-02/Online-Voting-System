@@ -50,3 +50,4 @@ message PublicResponse {
     string nationality = 6;
     string party_id = 7;
 }
+// message Void{}
