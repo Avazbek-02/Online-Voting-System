@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+option go_package = "genproto/Public/";
+
+package public;
+
+import "google/protobuf/timestamp.proto";
+
+service PublicService {
+    rpc CreatePublic(CreatePublicRequest) returns (PublicResponse) {}
+    rpc GetPublicInfo(GetPublicInfoRequest) returns (PublicResponse) {}
+    rpc UpdatePublic(UpdatePublicRequest) returns (PublicResponse) {}
+    rpc DeletePublic(DeletePublicRequest) returns (Void2) {}
+}
+
+message CreatePublicRequest {
+    string firstname = 1;
+    string lastname = 2;
+    google.protobuf.Timestamp birthday = 3;
+    string gender = 4;
+    string nationality = 5;
+    string party_id = 6;
+}
+
+message GetPublicInfoRequest {
+    string id = 1;
+}
+
+message UpdatePublicRequest {
+    string id = 1;
+    string firstname = 2;
+    string lastname = 3;
+    google.protobuf.Timestamp birthday = 4;
+    string gender = 5;
+    string nationality = 6;
+    string party_id = 7;
+}
+
+message DeletePublicRequest {
+    string id = 1;
+}
+
+message PublicResponse {
+    string id = 1;
+    string firstname = 2;
+    string lastname = 3;
+    google.protobuf.Timestamp birthday = 4;
+    string gender = 5;
+    string nationality = 6;
+    string party_id = 7;
+}
+
+message Void2 {}

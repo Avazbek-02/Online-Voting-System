@@ -8,4 +8,3 @@ create-mig:
 
 mig-insert:
 	migrate create -ext sql -dir db/migrations -seq insert_table
-
