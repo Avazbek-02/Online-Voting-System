@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-option go_package = "genproto/public/";
+option go_package = "genproto/";
 
-package party;
+package protos;
 
 import "google/protobuf/timestamp.proto";
 
@@ -10,7 +10,7 @@ service PartyService {
     rpc CreateParty(CreatePartyRequest) returns (PartyResponse) {}
     rpc GetPartyInfo(GetPartyInfoRequest) returns (PartyResponse) {}
     rpc UpdateParty(UpdatePartyRequest) returns (PartyResponse) {}
-    rpc DeleteParty(DeletePartyRequest) returns (Void1) {}
+    rpc DeleteParty(DeletePartyRequest) returns (Void) {}
 }
 
 message CreatePartyRequest {
@@ -40,4 +40,4 @@ message PartyResponse {
     string description = 5;
 }
 
-message Void1 {}
+message Void {}

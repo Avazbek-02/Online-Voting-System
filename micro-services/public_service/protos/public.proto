@@ -1,16 +1,17 @@
 syntax = "proto3";
 
-option go_package = "genproto/Public/";
+option go_package = "genproto/";
 
-package public;
+package protos;
 
 import "google/protobuf/timestamp.proto";
+import "party.proto";
 
 service PublicService {
     rpc CreatePublic(CreatePublicRequest) returns (PublicResponse) {}
     rpc GetPublicInfo(GetPublicInfoRequest) returns (PublicResponse) {}
     rpc UpdatePublic(UpdatePublicRequest) returns (PublicResponse) {}
-    rpc DeletePublic(DeletePublicRequest) returns (Void2) {}
+    rpc DeletePublic(DeletePublicRequest) returns (Void) {}
 }
 
 message CreatePublicRequest {
@@ -49,5 +50,3 @@ message PublicResponse {
     string nationality = 6;
     string party_id = 7;
 }
-
-message Void2 {}

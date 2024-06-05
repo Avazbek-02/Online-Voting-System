@@ -4,7 +4,7 @@
 // - protoc             v5.26.1
 // source: party.proto
 
-package public
+package genproto
 
 import (
 	context "context"
@@ -19,10 +19,10 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	PartyService_CreateParty_FullMethodName  = "/party.PartyService/CreateParty"
-	PartyService_GetPartyInfo_FullMethodName = "/party.PartyService/GetPartyInfo"
-	PartyService_UpdateParty_FullMethodName  = "/party.PartyService/UpdateParty"
-	PartyService_DeleteParty_FullMethodName  = "/party.PartyService/DeleteParty"
+	PartyService_CreateParty_FullMethodName  = "/protos.PartyService/CreateParty"
+	PartyService_GetPartyInfo_FullMethodName = "/protos.PartyService/GetPartyInfo"
+	PartyService_UpdateParty_FullMethodName  = "/protos.PartyService/UpdateParty"
+	PartyService_DeleteParty_FullMethodName  = "/protos.PartyService/DeleteParty"
 )
 
 // PartyServiceClient is the client API for PartyService service.
@@ -32,7 +32,7 @@ type PartyServiceClient interface {
 	CreateParty(ctx context.Context, in *CreatePartyRequest, opts ...grpc.CallOption) (*PartyResponse, error)
 	GetPartyInfo(ctx context.Context, in *GetPartyInfoRequest, opts ...grpc.CallOption) (*PartyResponse, error)
 	UpdateParty(ctx context.Context, in *UpdatePartyRequest, opts ...grpc.CallOption) (*PartyResponse, error)
-	DeleteParty(ctx context.Context, in *DeletePartyRequest, opts ...grpc.CallOption) (*Void1, error)
+	DeleteParty(ctx context.Context, in *DeletePartyRequest, opts ...grpc.CallOption) (*Void, error)
 }
 
 type partyServiceClient struct {
@@ -70,8 +70,8 @@ func (c *partyServiceClient) UpdateParty(ctx context.Context, in *UpdatePartyReq
 	return out, nil
 }
 
-func (c *partyServiceClient) DeleteParty(ctx context.Context, in *DeletePartyRequest, opts ...grpc.CallOption) (*Void1, error) {
-	out := new(Void1)
+func (c *partyServiceClient) DeleteParty(ctx context.Context, in *DeletePartyRequest, opts ...grpc.CallOption) (*Void, error) {
+	out := new(Void)
 	err := c.cc.Invoke(ctx, PartyService_DeleteParty_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -86,7 +86,7 @@ type PartyServiceServer interface {
 	CreateParty(context.Context, *CreatePartyRequest) (*PartyResponse, error)
 	GetPartyInfo(context.Context, *GetPartyInfoRequest) (*PartyResponse, error)
 	UpdateParty(context.Context, *UpdatePartyRequest) (*PartyResponse, error)
-	DeleteParty(context.Context, *DeletePartyRequest) (*Void1, error)
+	DeleteParty(context.Context, *DeletePartyRequest) (*Void, error)
 	mustEmbedUnimplementedPartyServiceServer()
 }
 
@@ -103,7 +103,7 @@ func (UnimplementedPartyServiceServer) GetPartyInfo(context.Context, *GetPartyIn
 func (UnimplementedPartyServiceServer) UpdateParty(context.Context, *UpdatePartyRequest) (*PartyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateParty not implemented")
 }
-func (UnimplementedPartyServiceServer) DeleteParty(context.Context, *DeletePartyRequest) (*Void1, error) {
+func (UnimplementedPartyServiceServer) DeleteParty(context.Context, *DeletePartyRequest) (*Void, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteParty not implemented")
 }
 func (UnimplementedPartyServiceServer) mustEmbedUnimplementedPartyServiceServer() {}
@@ -195,7 +195,7 @@ func _PartyService_DeleteParty_Handler(srv interface{}, ctx context.Context, dec
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var PartyService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "party.PartyService",
+	ServiceName: "protos.PartyService",
 	HandlerType: (*PartyServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

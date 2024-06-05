@@ -4,7 +4,7 @@
 // - protoc             v5.26.1
 // source: public.proto
 
-package Public
+package genproto
 
 import (
 	context "context"
@@ -19,10 +19,10 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	PublicService_CreatePublic_FullMethodName  = "/public.PublicService/CreatePublic"
-	PublicService_GetPublicInfo_FullMethodName = "/public.PublicService/GetPublicInfo"
-	PublicService_UpdatePublic_FullMethodName  = "/public.PublicService/UpdatePublic"
-	PublicService_DeletePublic_FullMethodName  = "/public.PublicService/DeletePublic"
+	PublicService_CreatePublic_FullMethodName  = "/protos.PublicService/CreatePublic"
+	PublicService_GetPublicInfo_FullMethodName = "/protos.PublicService/GetPublicInfo"
+	PublicService_UpdatePublic_FullMethodName  = "/protos.PublicService/UpdatePublic"
+	PublicService_DeletePublic_FullMethodName  = "/protos.PublicService/DeletePublic"
 )
 
 // PublicServiceClient is the client API for PublicService service.
@@ -32,7 +32,7 @@ type PublicServiceClient interface {
 	CreatePublic(ctx context.Context, in *CreatePublicRequest, opts ...grpc.CallOption) (*PublicResponse, error)
 	GetPublicInfo(ctx context.Context, in *GetPublicInfoRequest, opts ...grpc.CallOption) (*PublicResponse, error)
 	UpdatePublic(ctx context.Context, in *UpdatePublicRequest, opts ...grpc.CallOption) (*PublicResponse, error)
-	DeletePublic(ctx context.Context, in *DeletePublicRequest, opts ...grpc.CallOption) (*Void2, error)
+	DeletePublic(ctx context.Context, in *DeletePublicRequest, opts ...grpc.CallOption) (*Void, error)
 }
 
 type publicServiceClient struct {
@@ -70,8 +70,8 @@ func (c *publicServiceClient) UpdatePublic(ctx context.Context, in *UpdatePublic
 	return out, nil
 }
 
-func (c *publicServiceClient) DeletePublic(ctx context.Context, in *DeletePublicRequest, opts ...grpc.CallOption) (*Void2, error) {
-	out := new(Void2)
+func (c *publicServiceClient) DeletePublic(ctx context.Context, in *DeletePublicRequest, opts ...grpc.CallOption) (*Void, error) {
+	out := new(Void)
 	err := c.cc.Invoke(ctx, PublicService_DeletePublic_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -86,7 +86,7 @@ type PublicServiceServer interface {
 	CreatePublic(context.Context, *CreatePublicRequest) (*PublicResponse, error)
 	GetPublicInfo(context.Context, *GetPublicInfoRequest) (*PublicResponse, error)
 	UpdatePublic(context.Context, *UpdatePublicRequest) (*PublicResponse, error)
-	DeletePublic(context.Context, *DeletePublicRequest) (*Void2, error)
+	DeletePublic(context.Context, *DeletePublicRequest) (*Void, error)
 	mustEmbedUnimplementedPublicServiceServer()
 }
 
@@ -103,7 +103,7 @@ func (UnimplementedPublicServiceServer) GetPublicInfo(context.Context, *GetPubli
 func (UnimplementedPublicServiceServer) UpdatePublic(context.Context, *UpdatePublicRequest) (*PublicResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdatePublic not implemented")
 }
-func (UnimplementedPublicServiceServer) DeletePublic(context.Context, *DeletePublicRequest) (*Void2, error) {
+func (UnimplementedPublicServiceServer) DeletePublic(context.Context, *DeletePublicRequest) (*Void, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeletePublic not implemented")
 }
 func (UnimplementedPublicServiceServer) mustEmbedUnimplementedPublicServiceServer() {}
@@ -195,7 +195,7 @@ func _PublicService_DeletePublic_Handler(srv interface{}, ctx context.Context, d
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var PublicService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "public.PublicService",
+	ServiceName: "protos.PublicService",
 	HandlerType: (*PublicServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

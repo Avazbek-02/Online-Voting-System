@@ -1,9 +1,10 @@
 package service
 
 import (
-	pb "all/micro-services/public_service/genproto/Public"
-	"all/micro-services/public_service/storage/postgres"
 	"context"
+	"log"
+	pb "public_service/genproto"
+	"public_service/storage/postgres"
 )
 
 type partyService struct{
@@ -16,5 +17,12 @@ func NewPartyService(stg *postgres.Storage) *partyService {
 }
 
 func (pt *partyService) CreateBasket(ctx context.Context,req *pb.CreatePartyRequest) (*pb.GetPartyInfoRequest,error) {
-	res,err := pt.stg.Party
+	var party pb.GetPartyInfoRequest
+	party,err := pt.stg.Party.CreateParty(req)
+	if err != nil {
+		log.Println(err)
+		return nil, err
+	}
+
+	return nil, nil
 }
