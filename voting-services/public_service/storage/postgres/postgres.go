@@ -5,7 +5,7 @@ type Storage struct{
 }
 
 const(
-	host = "locolhost"
+	Host = "locolhost"
 )
 
 func DBConnect()  {

@@ -2,7 +2,7 @@ package service
 
 import (
 	"context"
-	"log"
+	// "log"
 	pb "public_service/genproto"
 	"public_service/storage/postgres"
 )
@@ -17,12 +17,12 @@ func NewPartyService(stg *postgres.Storage) *partyService {
 }
 
 func (pt *partyService) CreateBasket(ctx context.Context,req *pb.CreatePartyRequest) (*pb.GetPartyInfoRequest,error) {
-	var party pb.GetPartyInfoRequest
-	party,err := pt.stg.Party.CreateParty(req)
-	if err != nil {
-		log.Println(err)
-		return nil, err
-	}
+	// var party pb.GetPartyInfoRequest
+	// party,err := pt.stg.Party.CreateParty(req)
+	// if err != nil {
+	// 	log.Println(err)
+	// 	return nil, err
+	// }
 
 	return nil, nil
 }

@@ -30,7 +30,7 @@ func (pt *PartyRepo) CreateParty(party *pb.CreatePartyRequest) (*pb.CreatePartyR
 	query = `
 		select id,name,slogan,opened,description from paryt where id = $1
 	`
-	var backparty pb.GetPartyInfoRequest
-	a := pt.db.QueryRow(query,)
+	// var backparty pb.GetPartyInfoRequest
+	// a := pt.db.QueryRow(query,)
 	return party,err
 }
