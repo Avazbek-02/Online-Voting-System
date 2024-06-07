@@ -12,11 +12,11 @@ import (
 )
 
 func main() {
-	// voting, err := grpc.NewClient(":9090", grpc.WithTransportCredentials(insecure.NewCredentials()))
-	// if err != nil {
-	// 	log.Fatal("error while voting :9090", err)
-	// 	return
-	// }
+	voting, err := grpc.NewClient(":9090", grpc.WithTransportCredentials(insecure.NewCredentials()))
+	if err != nil {
+		log.Fatal("error while voting :9090", err)
+		return
+	}
 
 	publicserer, err := grpc.NewClient(fmt.Sprintf("localhost%s", ":9099"), grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
@@ -27,13 +27,16 @@ func main() {
 
 	public := pb.NewPublicServiceClient(publicserer)
 	party := pb.NewPartyServiceClient(publicserer)
+	canditate := pb.NewCandidateServiceClient(voting)
+	election := pb.NewElectionServiceClient(voting)
+	votes := pb.NewPublicVoteServiceClient(voting)
 
 
-	h := handler.NewHandler(party, public)
+	h := handler.NewHandler(party, public,canditate,election,votes)
 	router := api.NewEngine(h)
 
 	fmt.Println("Server is run on :8080")
-	
+
 	err = router.Run()
 	if err != nil{
 		log.Fatal("Error while router",err)
