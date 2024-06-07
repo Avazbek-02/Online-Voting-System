@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+option go_package = "genproto/";
+
+package voting;
+
+
+service CandidateService {
+    rpc CreateCandidate(CreateCandidateRequest) returns (CandidateResponse) {}
+    rpc GetCandidateInfo(GetCandidateInfoRequest) returns (CandidateResponse){}
+    rpc UpdateCandidate(UpdateCandidateRequest) returns (CandidateResponse){}
+    rpc DeleteCandidate(DeleteCandidateRequest) returns (Void1) {}
+}
+
+message CreateCandidateRequest {
+    string id = 1;
+    string election_id = 2;
+    string public_id = 3;
+    string party_id = 4;
+}
+
+message GetCandidateInfoRequest {
+    string id = 1;
+}
+
+message UpdateCandidateRequest {
+    string id = 1;
+}
+
+message DeleteCandidateRequest {
+    string id = 1;
+}
+
+message CandidateResponse {
+    string id = 1;
+    string election_id = 2;
+    string public_id = 3;
+    string party_id = 4;
+}
+
+message Void1 {}

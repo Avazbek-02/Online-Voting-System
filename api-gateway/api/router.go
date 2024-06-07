@@ -10,7 +10,8 @@ import (
 
 func NewEngine(h *handler.Handler) *gin.Engine {
 	r := gin.Default()
-	r.GET("/swager/*any",ginSwagger.WrapHandler(files.Handler))
+	r.GET("/swager/*any", ginSwagger.WrapHandler(files.Handler))
 	p := r.Group("party")
-	// p.POST("create",h.ServiceParty.CreateParty())
+	p.POST("create", h.CreateParty)
+	return r
 }
