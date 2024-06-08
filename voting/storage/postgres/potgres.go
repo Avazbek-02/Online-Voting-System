@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 
-	"all/voting/storage"
+	"all/storage"
 
 	_ "github.com/lib/pq"
 )

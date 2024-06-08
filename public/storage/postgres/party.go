@@ -6,7 +6,7 @@ import (
 	uuid "github.com/satori/go.uuid"
 	"google.golang.org/protobuf/types/known/timestamppb"
 
-	v "all/public/genproto/genproto/public"
+	v "all/genproto/genproto/public"
 )
 
 type PartyRepo struct {

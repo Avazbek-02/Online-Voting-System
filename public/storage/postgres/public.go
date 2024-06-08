@@ -1,7 +1,7 @@
 package postgres
 
 import (
-	v "all/public/genproto/genproto/public"
+	v "all/genproto/genproto/public"
 	"database/sql"
 
 	uuid "github.com/satori/go.uuid"

@@ -3,7 +3,7 @@ package postgres
 import (
 	"database/sql"
 
-	v "all/voting/genproto/genproto/voting"
+	v "all/genproto/genproto/voting"
 
 	uuid "github.com/satori/go.uuid"
 )

@@ -1,8 +1,8 @@
 package service
 
 import (
-	v "all/voting/genproto/genproto/voting"
-	"all/voting/storage"
+	v "all/genproto/genproto/voting"
+	"all/storage"
 	"context"
 )
 
