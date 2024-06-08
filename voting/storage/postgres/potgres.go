@@ -14,7 +14,7 @@ const (
 	password = "1234"
 	user     = "postgres"
 	port     = 5432
-	dbname   = "newdata"
+	dbname   = "postgres"
 )
 
 type Storage struct {

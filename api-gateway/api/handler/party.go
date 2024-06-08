@@ -5,21 +5,20 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/google/uuid"
 	"github.com/gin-gonic/gin"
 )
 
 func (h *Handler) CreateParty(ctx *gin.Context)  {
-	id := uuid.New()
-	party := pb.PartyResponse{}
-	party.Id = id.String()
+	party := pb.CreatePartyRequest{}
 	
 	fmt.Println("Worked")
 	err := ctx.BindJSON(&party)
+	
 	if err != nil{
 		log.Fatal("Error while create party read json",err)
 		return
 	}
+	h.ServiceParty.CreateParty(ctx, &party)
 	ctx.JSON(200,&party)
 }
 

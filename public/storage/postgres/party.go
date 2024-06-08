@@ -2,6 +2,7 @@ package postgres
 
 import (
 	"database/sql"
+	"fmt"
 
 	uuid "github.com/satori/go.uuid"
 
@@ -17,6 +18,7 @@ func NewPartyRepo(db *sql.DB) *PartyRepo {
 }
 
 func (pt *PartyRepo) CreateParty(req *v.CreatePartyRequest) (*v.PartyResponse, error) {
+	fmt.Println("Worked")
 	query := `
 		INSERT INTO party(id, name, slogan, opened_at, description) VALUES($1, $2, $3, $4, $5)
 	`

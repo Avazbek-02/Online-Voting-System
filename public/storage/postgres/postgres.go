@@ -19,11 +19,11 @@ const (
 	password = "1234"
 	user     = "postgres"
 	port     = 5432
-	dbname   = "newdata"
+	dbname   = "postgres"
 )
 
 func DBConnect() (*Storage, error) {
-	psql := fmt.Sprintf("host=%s password=%s user=%s port=%d dbname=%s", host, password, user, port, dbname)
+	psql := fmt.Sprintf("host=%s password=%s user=%s port=%d dbname=%s sslmode=disable", host, password, user, port, dbname)
 
 	db, err := sql.Open("postgres", psql)
 	if err != nil {
