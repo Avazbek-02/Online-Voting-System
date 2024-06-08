@@ -4,7 +4,6 @@ option go_package = "genproto/";
 
 package voting;
 
-import "google/protobuf/timestamp.proto";
 
 
 service ElectionService {
@@ -16,7 +15,7 @@ service ElectionService {
 
 message CreateElectionRequest {
     string name = 1;
-    google.protobuf.Timestamp date = 2;
+    string date = 2;
     
 }
 
@@ -36,7 +35,7 @@ message DeleteElectionRequest {
 message ElectionResponse {
     string id = 1;
     string name = 2;
-    google.protobuf.Timestamp date = 3;
+    string date = 3;
 }
 
 message Void2 {}

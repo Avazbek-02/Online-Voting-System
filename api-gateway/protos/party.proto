@@ -4,7 +4,6 @@ option go_package = "genproto/";
 
 package protos;
 
-import "google/protobuf/timestamp.proto";
 
 service PartyService {
     rpc CreateParty(CreatePartyRequest) returns (PartyResponse) {}
@@ -16,7 +15,7 @@ service PartyService {
 message CreatePartyRequest {
     string name = 1;
     string slogan = 2;
-    google.protobuf.Timestamp opened_at = 3;
+    string opened_at = 3;
     string description = 4;
 }
 
@@ -36,7 +35,7 @@ message PartyResponse {
     string id = 1;
     string name = 2;
     string slogan = 3;
-    google.protobuf.Timestamp opened_at = 4;
+    string opened_at = 4;
     string description = 5;
 }
 

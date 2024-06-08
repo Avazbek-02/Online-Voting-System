@@ -4,7 +4,6 @@ option go_package = "genproto/";
 
 package protos;
 
-import "google/protobuf/timestamp.proto";
 
 service PublicService {
     rpc CreatePublic(CreatePublicRequest) returns (PublicResponse) {}
@@ -16,7 +15,7 @@ service PublicService {
 message CreatePublicRequest {
     string firstname = 1;
     string lastname = 2;
-    google.protobuf.Timestamp birthday = 3;
+    string birthday = 3;
     string gender = 4;
     string nationality = 5;
     string party_id = 6;
@@ -38,7 +37,7 @@ message PublicResponse {
     string id = 1;
     string firstname = 2;
     string lastname = 3;
-    google.protobuf.Timestamp birthday = 4;
+    string birthday = 4;
     string gender = 5;
     string nationality = 6;
     string party_id = 7;
