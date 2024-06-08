@@ -23,7 +23,7 @@ func main() {
 	v.RegisterElectionServiceServer(newServe, service.NewElectionService(db))
 	v.RegisterPublicVoteServiceServer(newServe, service.NewPublicVoteService(db))
 
-	lis, err := net.Listen("tcp", ":50051")
+	lis, err := net.Listen("tcp", ":50050")
 	if err != nil {
 		log.Fatalf("Error while listening Server! %v", err)
 	}
