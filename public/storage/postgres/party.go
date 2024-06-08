@@ -4,7 +4,6 @@ import (
 	"database/sql"
 
 	uuid "github.com/satori/go.uuid"
-	"google.golang.org/protobuf/types/known/timestamppb"
 
 	v "public/genproto/genproto/public"
 )
@@ -23,7 +22,7 @@ func (pt *PartyRepo) CreateParty(req *v.CreatePartyRequest) (*v.PartyResponse, e
 	`
 	id := uuid.NewV4().String()
 
-	_, err := pt.db.Exec(query, id, req.Name, req.Slogan, req.OpenedAt.AsTime(), req.Description)
+	_, err := pt.db.Exec(query, id, req.Name, req.Slogan, req.OpenedAt, req.Description)
 	if err != nil {
 		return nil, err
 	}
@@ -42,20 +41,16 @@ func (pt *PartyRepo) SelectParty(id *v.GetPartyInfoRequest) (*v.PartyResponse, e
 		SELECT id, name, slogan, opened_at, description FROM party WHERE id = $1
 	`
 	var party v.PartyResponse
-	var openedAt sql.NullTime
+
 	err := pt.db.QueryRow(query, id.Id).Scan(
 		&party.Id,
 		&party.Name,
 		&party.Slogan,
-		&openedAt,
+		&party.OpenedAt,
 		&party.Description,
 	)
 	if err != nil {
 		return nil, err
-	}
-
-	if openedAt.Valid {
-		party.OpenedAt = timestamppb.New(openedAt.Time)
 	}
 
 	return &party, nil
@@ -65,7 +60,7 @@ func (pt *PartyRepo) UpdateParty(req *v.UpdatePartyRequest) (*v.PartyResponse, e
 	query := `
 		UPDATE party SET name = $2, slogan = $3, opened_at = $4, description = $5 WHERE id = $1
 	`
-	_, err := pt.db.Exec(query, req.Id, req.Name, req.Slogan, req.OpenedAt.AsTime(), req.Description)
+	_, err := pt.db.Exec(query, req.Id, req.Name, req.Slogan, req.OpenedAt, req.Description)
 	if err != nil {
 		return nil, err
 	}
