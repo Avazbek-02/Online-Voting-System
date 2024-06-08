@@ -30,6 +30,11 @@ func NewEngine(h *handler.Handler) *gin.Engine {
 	candidate.PUT("update/:id",h.GetCondidateById)
 	candidate.DELETE("update/:id",h.DeleteCondidate)
 
+	election := router.Group("election")
+	election.POST("create",h.CreateElection)
+	election.GET("get/:id",h.GetElectoin)
+	election.PUT("update",h.UpdateElection)
+	election.DELETE("delete",h.DeleteElection)
 
 	return router
 }

@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func (h Handler) CreateParty(ctx *gin.Context)  {
+func (h *Handler) CreateParty(ctx *gin.Context)  {
 	party := pb.PartyResponse{}
 	err := ctx.BindJSON(&party)
 	if err != nil{
@@ -17,7 +17,7 @@ func (h Handler) CreateParty(ctx *gin.Context)  {
 	ctx.JSON(200,&party)
 }
 
-func (h Handler) UpdateParty(ctx *gin.Context)  {
+func (h *Handler) UpdateParty(ctx *gin.Context)  {
 	// id := ctx.Param("id")
 	party := pb.PartyResponse{}
 	err := ctx.BindJSON(&party)
@@ -28,12 +28,12 @@ func (h Handler) UpdateParty(ctx *gin.Context)  {
 	ctx.JSON(200,&party)
 }
 
-func (h Handler) DeleteParty(ctx *gin.Context)  {
+func (h *Handler) DeleteParty(ctx *gin.Context)  {
 	// id := ctx.Param("id")
 	ctx.JSON(200,gin.H{"Deleted":"Party is deleted"})
 }
 
-func (h Handler) GetPartyById(ctx *gin.Context)  {
+func (h *Handler) GetPartyById(ctx *gin.Context)  {
 	// id := ctx.Param("id")
 
 }
