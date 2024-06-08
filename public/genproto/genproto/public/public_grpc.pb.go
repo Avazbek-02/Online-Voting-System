@@ -4,7 +4,7 @@
 // - protoc             v3.12.4
 // source: public.proto
 
-package genproto
+package public
 
 import (
 	context "context"

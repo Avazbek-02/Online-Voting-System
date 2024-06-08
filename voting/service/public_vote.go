@@ -3,42 +3,47 @@ package service
 import (
 	v "all/voting/genproto/genproto/voting"
 	"all/voting/storage"
+	"context"
 )
 
 type PublicVoteService struct {
-	storage storage.StorageI
+	v.UnimplementedPublicVoteServiceServer
+	stg storage.StorageI
 }
 
-func NewPublicVoteService(storage storage.StorageI) *PublicVoteService {
-	return &PublicVoteService{storage: storage}
+func NewPublicVoteService(stg storage.StorageI) *PublicVoteService {
+	return &PublicVoteService{
+		UnimplementedPublicVoteServiceServer: v.UnimplementedPublicVoteServiceServer{},
+		stg:                                  stg,
+	}
 }
 
-func (ps *PublicVoteService) CreatePublicVote(req *v.CreatePublicVoteRequest) (*v.PublicVoteResponse, error) {
-	publicVote, err := ps.storage.PublicVote().CreatePublicVote(req)
+func (ps *PublicVoteService) CreatePublicVote(ctx context.Context, req *v.CreatePublicVoteRequest) (*v.PublicVoteResponse, error) {
+	publicVote, err := ps.stg.PublicVote().CreatePublicVote(req)
 	if err != nil {
 		return nil, err
 	}
 	return publicVote, nil
 }
 
-func (ps *PublicVoteService) GetPublicVoteInfo(req *v.GetPublicVoteInfoRequest) (*v.PublicVoteResponse, error) {
-	publicVote, err := ps.storage.PublicVote().SelectPublicVote(req)
+func (ps *PublicVoteService) GetPublicVoteInfo(ctx context.Context, req *v.GetPublicVoteInfoRequest) (*v.PublicVoteResponse, error) {
+	publicVote, err := ps.stg.PublicVote().GetPublicVoteInfo(req)
 	if err != nil {
 		return nil, err
 	}
 	return publicVote, nil
 }
 
-func (ps *PublicVoteService) UpdatePublicVote(req *v.UpdatePublicVoteRequest) (*v.PublicVoteResponse, error) {
-	publicVote, err := ps.storage.PublicVote().UpdatePublicVote(req)
+func (ps *PublicVoteService) UpdatePublicVote(ctx context.Context, req *v.UpdatePublicVoteRequest) (*v.PublicVoteResponse, error) {
+	publicVote, err := ps.stg.PublicVote().UpdatePublicVote(req)
 	if err != nil {
 		return nil, err
 	}
 	return publicVote, nil
 }
 
-func (ps *PublicVoteService) DeletePublicVote(req *v.DeletePublicVoteRequest) (*v.Void3, error) {
-	_, err := ps.storage.PublicVote().DeletePublicVote(req)
+func (ps *PublicVoteService) DeletePublicVote(ctx context.Context, req *v.DeletePublicVoteRequest) (*v.Void3, error) {
+	_, err := ps.stg.PublicVote().DeletePublicVote(req)
 	if err != nil {
 		return nil, err
 	}

@@ -1,7 +1,7 @@
 package service
 
 import (
-	"all/public/genproto/genproto"
+	genproto "all/public/genproto/genproto/public"
 	"all/public/storage"
 	"context"
 )

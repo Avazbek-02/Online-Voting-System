@@ -1,7 +1,8 @@
 package storage
 
 import (
-	"all/public/genproto/genproto"
+	v "all/public/genproto/genproto/public"
+
 )
 
 type StorageI interface {
@@ -10,15 +11,15 @@ type StorageI interface {
 }
 
 type Parties interface {
-	CreateParty(req *genproto.CreatePartyRequest) (*genproto.PartyResponse, error)
-	SelectParty(id *genproto.GetPartyInfoRequest) (*genproto.PartyResponse, error)
-	UpdateParty(req *genproto.UpdatePartyRequest) (*genproto.PartyResponse, error)
-	DeleteParty(id *genproto.DeletePartyRequest) (*genproto.Voidd, error)
+	CreateParty(req *v.CreatePartyRequest) (*v.PartyResponse, error)
+	SelectParty(req *v.GetPartyInfoRequest) (*v.PartyResponse, error)
+	UpdateParty(req *v.UpdatePartyRequest) (*v.PartyResponse, error)
+	DeleteParty(req *v.DeletePartyRequest) (*v.Voidd, error)
 }
 
 type Publics interface {
-	CreatePublic(req *genproto.CreatePublicRequest) (*genproto.PublicResponse, error)
-	SelectPublic(id *genproto.GetPublicInfoRequest) (*genproto.PublicResponse, error)
-	UpdatePublic(req *genproto.UpdatePublicRequest) (*genproto.PublicResponse, error)
-	DeletePublic(id *genproto.DeletePublicRequest) (*genproto.Void, error)
+	CreatePublic(req *v.CreatePublicRequest) (*v.PublicResponse, error)
+	SelectPublic(req *v.GetPublicInfoRequest) (*v.PublicResponse, error)
+	UpdatePublic(req *v.UpdatePublicRequest) (*v.PublicResponse, error)
+	DeletePublic(req *v.DeletePublicRequest) (*v.Void, error)
 }

@@ -22,6 +22,8 @@ message GetPublicVoteInfoRequest {
 
 message UpdatePublicVoteRequest {
     string id = 1;
+    string election_id = 2;
+    string public_id = 3;
 }
 
 message DeletePublicVoteRequest {

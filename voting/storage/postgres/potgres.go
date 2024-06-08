@@ -4,15 +4,10 @@ import (
 	"database/sql"
 	"fmt"
 
+	"all/voting/storage"
+
 	_ "github.com/lib/pq"
 )
-
-type Storage struct {
-	db             *sql.DB
-	PublicVoteRepo *PublicVoteRepo
-	Election       *ElectionRepo
-	Candidate      *CandidateRepo
-}
 
 const (
 	host     = "localhost"
@@ -22,8 +17,15 @@ const (
 	dbname   = "newdata"
 )
 
+type Storage struct {
+	db          *sql.DB
+	Candidates  storage.Candidates
+	Elections   storage.Elections
+	PublicVotes storage.PublicVotes
+}
+
 func DBConnect() (*Storage, error) {
-	psql := fmt.Sprintf("host=%s password=%s user=%s port=%d dbname=%s", host, password, user, port, dbname)
+	psql := fmt.Sprintf("host=%s password=%s user=%s port=%d dbname=%s sslmode=disable", host, password, user, port, dbname)
 
 	db, err := sql.Open("postgres", psql)
 	if err != nil {
@@ -37,8 +39,28 @@ func DBConnect() (*Storage, error) {
 
 	cr := NewCandidateRepo(db)
 	er := NewElectionRepo(db)
-	pr := NewPublicVoteRepo(db)
+	pv := NewPublicVoteRepo(db)
 
-	return &Storage{db: db, PublicVoteRepo: pr, Candidate: cr, Election: er}, nil
+	return &Storage{db: db, Candidates: cr, Elections: er, PublicVotes: pv}, nil
+}
 
+func (stg *Storage) Candidate() storage.Candidates {
+	if stg.Candidates == nil {
+		stg.Candidates = NewCandidateRepo(stg.db)
+	}
+	return stg.Candidates
+}
+
+func (stg *Storage) Election() storage.Elections {
+	if stg.Elections == nil {
+		stg.Elections = NewElectionRepo(stg.db)
+	}
+	return stg.Elections
+}
+
+func (stg *Storage) PublicVote() storage.PublicVotes {
+	if stg.PublicVotes == nil {
+		stg.PublicVotes = NewPublicVoteRepo(stg.db)
+	}
+	return stg.PublicVotes
 }

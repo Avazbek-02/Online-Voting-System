@@ -56,16 +56,16 @@ func (repo *CandidateRepo) GetCandidateInfo(req *v.GetCandidateInfoRequest) (*v.
 	return &candidate, nil
 }
 
-func (repo *CandidateRepo) UpdateCandidate(id string, req *v.CreateCandidateRequest) (*v.CandidateResponse, error) {
+func (repo *CandidateRepo) UpdateCandidate(req *v.UpdateCandidateRequest) (*v.CandidateResponse, error) {
 	query := `
 		UPDATE candidate SET election_id = $2, public_id = $3, party_id = $4 WHERE id = $1
 	`
-	_, err := repo.db.Exec(query, id, req.ElectionId, req.PublicId, req.PartyId)
+	_, err := repo.db.Exec(query, req.Id, req.ElectionId, req.PublicId, req.PartyId)
 	if err != nil {
 		return nil, err
 	}
 
-	return repo.GetCandidateInfo(&v.GetCandidateInfoRequest{Id: id})
+	return repo.GetCandidateInfo(&v.GetCandidateInfoRequest{Id: req.Id})
 }
 
 func (repo *CandidateRepo) DeleteCandidate(req *v.DeleteCandidateRequest) (*v.Void1, error) {

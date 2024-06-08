@@ -1,6 +1,7 @@
 package postgres
 
 import (
+	"all/public/storage"
 	"database/sql"
 	"fmt"
 
@@ -8,9 +9,9 @@ import (
 )
 
 type Storage struct {
-	db         *sql.DB
-	PartyRepo  *PartyRepo
-	PublicRepo *PublicRepo
+	db      *sql.DB
+	Parties storage.Parties
+	Publics storage.Publics
 }
 
 const (
@@ -37,6 +38,21 @@ func DBConnect() (*Storage, error) {
 	pr := NewPartyRepo(db)
 	prr := NewPublicRepo(db)
 
-	return &Storage{db: db, PartyRepo: pr, PublicRepo: prr}, nil
+	storage := &Storage{db: db, Parties: pr, Publics: prr}
 
+	return storage, nil
+}
+
+func (stg *Storage) Party() storage.Parties {
+	if stg.Parties == nil {
+		stg.Parties = NewPartyRepo(stg.db)
+	}
+	return stg.Parties
+}
+
+func (stg *Storage) Public() storage.Publics {
+	if stg.Publics == nil {
+		stg.Publics = NewPublicRepo(stg.db)
+	}
+	return stg.Publics
 }

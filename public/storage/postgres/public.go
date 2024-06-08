@@ -1,7 +1,7 @@
 package postgres
 
 import (
-	"all/public/genproto/genproto"
+	v "all/public/genproto/genproto/public"
 	"database/sql"
 
 	uuid "github.com/satori/go.uuid"
@@ -15,7 +15,7 @@ func NewPublicRepo(db *sql.DB) *PublicRepo {
 	return &PublicRepo{db: db}
 }
 
-func (pr *PublicRepo) CreatePublic(req *genproto.CreatePublicRequest) (*genproto.PublicResponse, error) {
+func (pr *PublicRepo) CreatePublic(req *v.CreatePublicRequest) (*v.PublicResponse, error) {
 	query := `
 		INSERT INTO public(id, firstname, lastname, birthday, gender, nationality, party_id) 
 		VALUES($1, $2, $3, $4, $5, $6, $7)
@@ -27,7 +27,7 @@ func (pr *PublicRepo) CreatePublic(req *genproto.CreatePublicRequest) (*genproto
 		return nil, err
 	}
 
-	return &genproto.PublicResponse{
+	return &v.PublicResponse{
 		Id:          id,
 		Firstname:   req.Firstname,
 		Lastname:    req.Lastname,
@@ -38,11 +38,11 @@ func (pr *PublicRepo) CreatePublic(req *genproto.CreatePublicRequest) (*genproto
 	}, nil
 }
 
-func (pr *PublicRepo) SelectPublic(id *genproto.GetPublicInfoRequest) (*genproto.PublicResponse, error) {
+func (pr *PublicRepo) SelectPublic(id *v.GetPublicInfoRequest) (*v.PublicResponse, error) {
 	query := `
 		SELECT id, firstname, lastname, birthday, gender, nationality, party_id FROM public WHERE id = $1
 	`
-	var public genproto.PublicResponse
+	var public v.PublicResponse
 	err := pr.db.QueryRow(query, id.Id).Scan(
 		&public.Id,
 		&public.Firstname,
@@ -59,22 +59,25 @@ func (pr *PublicRepo) SelectPublic(id *genproto.GetPublicInfoRequest) (*genproto
 	return &public, nil
 }
 
-func (pr *PublicRepo) UpdatePublic(id string, req *genproto.CreatePublicRequest) (*genproto.PublicResponse, error) {
+func (pr *PublicRepo) UpdatePublic(req *v.UpdatePublicRequest) (*v.PublicResponse, error) {
 	query := `
 		UPDATE public SET firstname = $2, lastname = $3, birthday = $4, gender = $5, nationality = $6, party_id = $7 WHERE id = $1
 	`
-	_, err := pr.db.Exec(query, id, req.Firstname, req.Lastname, req.Birthday, req.Gender, req.Nationality, req.PartyId)
+	_, err := pr.db.Exec(query, req.Id, req.Firstname, req.Lastname, req.Birthday, req.Gender, req.Nationality, req.PartyId)
 	if err != nil {
 		return nil, err
 	}
 
-	return pr.SelectPublic(&genproto.GetPublicInfoRequest{Id: id})
+	return pr.SelectPublic(&v.GetPublicInfoRequest{Id: req.Id})
 }
 
-func (pr *PublicRepo) DeletePublic(id string) error {
+func (pr *PublicRepo) DeletePublic(id *v.DeletePublicRequest) (*v.Void, error) {
 	query := `
 		DELETE FROM public WHERE id = $1
 	`
-	_, err := pr.db.Exec(query, id)
-	return err
+	_, err := pr.db.Exec(query, id.Id)
+	if err != nil {
+		return nil, err
+	}
+	return &v.Void{}, nil
 }

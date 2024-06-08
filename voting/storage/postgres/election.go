@@ -18,7 +18,7 @@ func NewElectionRepo(db *sql.DB) *ElectionRepo {
 	return &ElectionRepo{db: db}
 }
 
-func (repo *ElectionRepo) Create(election *v.CreateElectionRequest) (*v.ElectionResponse, error) {
+func (repo *ElectionRepo) CreateElection(election *v.CreateElectionRequest) (*v.ElectionResponse, error) {
 	query := `INSERT INTO elections (name, date) VALUES ($1, $2) RETURNING id, name, date`
 	var id string
 	err := repo.db.QueryRow(query, election.Name, election.Date.AsTime()).Scan(&id, &election.Name, &election.Date)
@@ -32,9 +32,9 @@ func (repo *ElectionRepo) Create(election *v.CreateElectionRequest) (*v.Election
 	}, nil
 }
 
-func (repo *ElectionRepo) GetByID(id string) (*v.ElectionResponse, error) {
+func (repo *ElectionRepo) GetElectionInfo(req *v.GetElectionInfoRequest) (*v.ElectionResponse, error) {
 	query := "SELECT id, name, date FROM elections WHERE id = $1"
-	row := repo.db.QueryRow(query, id)
+	row := repo.db.QueryRow(query, req.Id)
 
 	var election v.ElectionResponse
 	var date time.Time
@@ -49,11 +49,11 @@ func (repo *ElectionRepo) GetByID(id string) (*v.ElectionResponse, error) {
 	return &election, nil
 }
 
-func (repo *ElectionRepo) Update(id string, election *v.CreateElectionRequest) (*v.ElectionResponse, error) {
+func (repo *ElectionRepo) UpdateElection(election *v.UpdateElectionRequest) (*v.ElectionResponse, error) {
 	query := `UPDATE elections SET name = $2, date = $3 WHERE id = $1 RETURNING id, name, date`
 	var updatedElection v.ElectionResponse
 	var date time.Time
-	err := repo.db.QueryRow(query, id, election.Name, election.Date.AsTime()).Scan(&updatedElection.Id, &updatedElection.Name, &date)
+	err := repo.db.QueryRow(query, election.Name, election.Date.AsTime(), election.Id).Scan(&updatedElection.Id, &updatedElection.Name, &date)
 	if err != nil {
 		return nil, err
 	}
@@ -61,9 +61,11 @@ func (repo *ElectionRepo) Update(id string, election *v.CreateElectionRequest) (
 	return &updatedElection, nil
 }
 
-
-func (repo *ElectionRepo) Delete(id string) error {
+func (repo *ElectionRepo) DeleteElection(id *v.DeleteElectionRequest) (*v.Void2, error) {
 	query := "DELETE FROM elections WHERE id = $1"
 	_, err := repo.db.Exec(query, id)
-	return err
+	if err != nil {
+		return nil, err
+	}
+	return &v.Void2{}, nil
 }

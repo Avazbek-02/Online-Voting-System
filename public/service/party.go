@@ -1,7 +1,7 @@
 package service
 
 import (
-	"all/public/genproto/genproto"
+	genproto "all/public/genproto/genproto/public"
 	"all/public/storage"
 	"context"
 )
@@ -23,7 +23,7 @@ func (pt *PartyService) CreateParty(ctx context.Context, req *genproto.CreatePar
 	return party, nil
 }
 
-func (pt *PartyService) GetParty(ctx context.Context, req *genproto.GetPartyInfoRequest) (*genproto.PartyResponse, error) {
+func (pt *PartyService) GetPartyInfo(ctx context.Context, req *genproto.GetPartyInfoRequest) (*genproto.PartyResponse, error) {
 	party, err := pt.stg.Party().SelectParty(req)
 	if err != nil {
 		return nil, err

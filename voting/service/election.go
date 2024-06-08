@@ -3,42 +3,47 @@ package service
 import (
 	v "all/voting/genproto/genproto/voting"
 	"all/voting/storage"
+	"context"
 )
 
 type ElectionService struct {
-	storage storage.StorageI
+	v.UnimplementedElectionServiceServer
+	stg storage.StorageI
 }
 
-func NewElectionService(storage storage.StorageI) *ElectionService {
-	return &ElectionService{storage: storage}
+func NewElectionService(stg storage.StorageI) *ElectionService {
+	return &ElectionService{
+		UnimplementedElectionServiceServer: v.UnimplementedElectionServiceServer{},
+		stg:                                 stg,
+	}
 }
 
-func (es *ElectionService) CreateElection(req *v.CreateElectionRequest) (*v.ElectionResponse, error) {
-	election, err := es.storage.Election().CreateElection(req)
+func (es *ElectionService) CreateElection(ctx context.Context, req *v.CreateElectionRequest) (*v.ElectionResponse, error) {
+	election, err := es.stg.Election().CreateElection(req)
 	if err != nil {
 		return nil, err
 	}
 	return election, nil
 }
 
-func (es *ElectionService) GetElectionInfo(req *v.GetElectionInfoRequest) (*v.ElectionResponse, error) {
-	election, err := es.storage.Election().SelectElection(req)
+func (es *ElectionService) GetElectionInfo(ctx context.Context, req *v.GetElectionInfoRequest) (*v.ElectionResponse, error) {
+	election, err := es.stg.Election().GetElectionInfo(req)
 	if err != nil {
 		return nil, err
 	}
 	return election, nil
 }
 
-func (es *ElectionService) UpdateElection(req *v.UpdateElectionRequest) (*v.ElectionResponse, error) {
-	election, err := es.storage.Election().UpdateElection(req)
+func (es *ElectionService) UpdateElection(ctx context.Context, req *v.UpdateElectionRequest) (*v.ElectionResponse, error) {
+	election, err := es.stg.Election().UpdateElection(req)
 	if err != nil {
 		return nil, err
 	}
 	return election, nil
 }
 
-func (es *ElectionService) DeleteElection(req *v.DeleteElectionRequest) (*v.Void2, error) {
-	_, err := es.storage.Election().DeleteElection(req)
+func (es *ElectionService) DeleteElection(ctx context.Context, req *v.DeleteElectionRequest) (*v.Void2, error) {
+	_, err := es.stg.Election().DeleteElection(req)
 	if err != nil {
 		return nil, err
 	}
