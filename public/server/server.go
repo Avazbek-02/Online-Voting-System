@@ -1,9 +1,9 @@
 package main
 
 import (
-	v "all/genproto/genproto/public"
-	"all/service"
-	"all/storage/postgres"
+	v "public/genproto/genproto/public"
+	"public/service"
+	"public/storage/postgres"
 	"log"
 	"net"
 

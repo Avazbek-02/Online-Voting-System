@@ -1,7 +1,7 @@
 package postgres
 
 import (
-	"all/storage"
+	"public/storage"
 	"database/sql"
 	"fmt"
 

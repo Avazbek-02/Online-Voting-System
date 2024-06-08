@@ -4,9 +4,9 @@ import (
 	"log"
 	"net"
 
-	"all/storage/postgres"
-	v "all/genproto/genproto/voting"
-	"all/service"
+	"voting/storage/postgres"
+	v "voting/genproto/genproto/voting"
+	"voting/service"
 
 	"google.golang.org/grpc"
 )

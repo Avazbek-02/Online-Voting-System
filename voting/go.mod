@@ -1,4 +1,4 @@
-module all
+module voting
 
 go 1.22.4
 

@@ -1,7 +1,7 @@
 package storage
 
 import (
-	v "all/genproto/genproto/public"
+	v "public/genproto/genproto/public"
 
 )
 

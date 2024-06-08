@@ -1,4 +1,4 @@
-module all
+module public
 
 go 1.22.4
 

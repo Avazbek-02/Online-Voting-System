@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"time"
 
-	v "all/genproto/genproto/voting"
+	v "voting/genproto/genproto/voting"
 
 	_ "github.com/lib/pq"
 	"google.golang.org/protobuf/types/known/timestamppb"

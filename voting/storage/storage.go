@@ -1,6 +1,6 @@
 package storage
 
-import "all/genproto/genproto/voting"
+import "voting/genproto/genproto/voting"
 
 type StorageI interface {
 	Candidate() Candidates
