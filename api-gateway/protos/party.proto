@@ -6,10 +6,10 @@ package protos;
 
 
 service PartyService {
-    rpc CreateParty(CreatePartyRequest) returns (PartyResponse) {}
-    rpc GetPartyInfo(GetPartyInfoRequest) returns (PartyResponse) {}
-    rpc UpdateParty(UpdatePartyRequest) returns (PartyResponse) {}
-    rpc DeleteParty(DeletePartyRequest) returns (Voidd) {}
+    rpc CreateParty(CreatePartyRequest) returns (PartyResponse);
+    rpc GetPartyInfo(GetPartyInfoRequest) returns (PartyResponse);
+    rpc UpdateParty(UpdatePartyRequest) returns (PartyResponse);
+    rpc DeleteParty(DeletePartyRequest) returns (Voidd);
 }
 
 message CreatePartyRequest {
@@ -25,6 +25,10 @@ message GetPartyInfoRequest {
 
 message UpdatePartyRequest {
     string id = 1;
+    string name = 2;
+    string slogan = 3;
+    string opened_at = 4;
+    string description = 5;
 }
 
 message DeletePartyRequest {

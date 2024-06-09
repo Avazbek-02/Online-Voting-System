@@ -5,7 +5,6 @@ option go_package = "genproto/";
 package voting;
 
 
-
 service ElectionService {
     rpc CreateElection(CreateElectionRequest) returns (ElectionResponse) {}
     rpc GetElectionInfo(GetElectionInfoRequest) returns (ElectionResponse) {}
@@ -16,9 +15,7 @@ service ElectionService {
 message CreateElectionRequest {
     string name = 1;
     string date = 2;
-    
 }
-
 
 message GetElectionInfoRequest {
     string id = 1;
@@ -26,6 +23,8 @@ message GetElectionInfoRequest {
 
 message UpdateElectionRequest {
     string id = 1;
+    string name = 2;
+    string date = 3;
 }
 
 message DeleteElectionRequest {
