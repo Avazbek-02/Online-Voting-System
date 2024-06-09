@@ -13,7 +13,7 @@ type Handler struct {
 func NewHandler(party pb.PartyServiceClient, public pb.PublicServiceClient,candidate pb.CandidateServiceClient,election pb.ElectionServiceClient,votes pb.PublicVoteServiceClient) *Handler {
 	return &Handler{
 		ServiceParty: party,
-		ServicePublic: public,//dsf
+		ServicePublic: public,
 		ServiceCandidate: candidate,
 		ServiceElection: election,
 		ServiceVote: votes,
