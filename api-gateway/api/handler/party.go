@@ -45,9 +45,9 @@ func (h *Handler) DeleteParty(ctx *gin.Context) {
 	party := pb.DeletePartyRequest{
 		Id: id,
 	}
-	_,err := h.ServiceParty.DeleteParty(ctx, &party)
-	if err != nil{
-		log.Fatal("Error while delete in handler",err)
+	_, err := h.ServiceParty.DeleteParty(ctx, &party)
+	if err != nil {
+		log.Fatal("Error while delete in handler", err)
 		return
 	}
 	ctx.JSON(200, gin.H{"Deleted": "Party is deleted"})
