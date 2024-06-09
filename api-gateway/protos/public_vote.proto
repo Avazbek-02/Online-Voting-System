@@ -13,7 +13,7 @@ service PublicVoteService {
 
 message CreatePublicVoteRequest {
     string election_id = 1;
-    string public_id = 2;//c
+    string public_id = 2;
 }
 
 message GetPublicVoteInfoRequest {
