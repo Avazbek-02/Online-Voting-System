@@ -10,11 +10,11 @@ type StorageI interface {
 	Public() Publics
 }
 
-type Parties interface {
+type 	Parties interface {
 	CreateParty(req *v.CreatePartyRequest) (*v.PartyResponse, error)
 	SelectParty(req *v.GetPartyInfoRequest) (*v.PartyResponse, error)
 	UpdateParty(req *v.UpdatePartyRequest) (*v.PartyResponse, error)
-	DeleteParty(req *v.DeletePartyRequest) (*v.Voidd, error)
+	DeleteParty(req *v.DeletePartyRequest) (*v.Voidd, error)//
 }
 
 type Publics interface {
