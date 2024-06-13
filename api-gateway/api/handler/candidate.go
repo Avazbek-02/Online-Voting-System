@@ -4,7 +4,7 @@ import (
 	pb "api/genproto"
 	"log"
 
-	"github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin"//
 )
 
 func (h *Handler) GetCondidateById(ctx *gin.Context) {
